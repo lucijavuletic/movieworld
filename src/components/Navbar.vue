@@ -46,7 +46,7 @@ export default {
                     <div class="navbar__container__dots__dot"></div>
                 </div>
                 <a class="navbar__container__title" href="/">
-                    <img class="navbar__container__title__icon" src="../assets/images/cinema.svg">
+                    <img class="navbar__container__title__icon" src="../assets/images/cinema.svg" alt="Movie icon">
                     <h1 class="navbar__container__title__text">MovieWorld</h1>
                 </a>
             </div>

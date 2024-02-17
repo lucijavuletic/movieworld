@@ -6,6 +6,7 @@ import Movie from '../views/Movie.vue';
 const routes = [
   {
     path: '/',
+    name: 'Home',
     component: Home,
   },
   {
