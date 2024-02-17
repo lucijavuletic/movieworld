@@ -55,11 +55,14 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@import '../assets/styles/common/colors.scss' ;
+@import '../assets/styles/common/mixins.scss' ;
+
 .navbar {
     position: fixed;
     width: 100%;
     transition: transform 0.25s ease-in-out;
-    background: #DDD0C8;
+    background: $color-beige;
     border-bottom: 1px solid rgba(168, 123, 95, 0.26);
     z-index: 100;
 
@@ -87,7 +90,7 @@ export default {
                 width: 8px;
                 height: 8px;
                 border-radius: 50%;
-                background-color: #323232;
+                background-color: $color-dark-brown;
             }
         }
 
@@ -100,6 +103,7 @@ export default {
             text-align: center;
             text-decoration: none;
             transition: all .15s ease-in-out;
+            text-shadow: 1px 1px 3px rgba(50, 50, 50, 0.308);
 
             &__icon {
                 max-width: 28px;
@@ -107,7 +111,7 @@ export default {
 
             &__text {
                 font-size: 28px;
-                color: #323232;
+                color: $color-dark-brown;
             }
             
             &:hover {
@@ -118,6 +122,22 @@ export default {
 
     &--hidden {
         transform: translateY(-100%);
+    }
+
+    @include respondBetween(0, 600px) {
+      &__container {
+        &__title {
+          gap: 4px;
+          
+          &__icon {
+            max-width: 18px;
+          }
+
+          &__text {
+            font-size: 16px;
+          }
+        }
+      }
     }
 }
 </style>

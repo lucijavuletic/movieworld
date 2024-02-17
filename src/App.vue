@@ -24,11 +24,14 @@ export default {
   <Footer></Footer>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import './assets/styles/common/colors.scss';
+@import './assets/styles/common/variables.scss';
+
 main {
-  background-color: #DDD0C8;
-  min-height: 150vh;
-  padding-top: 87px;
+  background-color: $color-beige;
+  min-height: calc(100vh - $navbar-height);
+  padding-top: $navbar-height;
   overflow: hidden;
 }
 </style>

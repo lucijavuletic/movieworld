@@ -27,8 +27,10 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@import '../assets/styles/common/colors.scss';
+
 .footer {
-    background: #323232;
+    background: $color-dark-brown;
 
     &__container {
         padding: 24px 0;
@@ -36,13 +38,13 @@ export default {
         text-align: center;
 
         &__text {
-          color: #fff;
+          color: $color-white;
           margin: 0 auto 24px;
           font-size: 18px;
 
           a {
             font-weight: bold;
-            color: #fff;
+            color: $color-white;
             transition: all .15s ease-in-out;
 
             &:hover {
@@ -54,11 +56,11 @@ export default {
         &__title {
             gap: 8px;
             margin: 0 auto;
-            font-size: 24px;
-            color: #323232;
-            background-color: #DDD0C8;
+            font-size: 18px;
+            color: $color-dark-brown;
+            background-color: $color-beige;
             width: fit-content;
-            padding: 4px 16px;
+            padding: 4px 24px;
             border-radius: 24px;
         }
     }
