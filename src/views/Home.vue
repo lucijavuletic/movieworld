@@ -112,6 +112,7 @@
         },
         goToMovieDetails(movieId) {
             // Use Vue Router to navigate to the movie details page
+            console.log('Navigating to Movie details with ID:', movieId);
             this.$router.push({ name: 'Movie', params: { id: movieId } });
         },
     },

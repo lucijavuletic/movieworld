@@ -11,10 +11,10 @@
             {{ roundFloatToOneDecimal(movie.vote_average) }}
           </div>
         </div>
-        <p class="c-movie-item__year">
+        <div class="c-movie-item__year">
             <img class="c-movie-item__year__icon" src="../assets/images/date-icon.svg" alt="Date year">
             {{ getReleaseYear(movie.release_date) }}
-        </p>
+        </div>
         <h3 class="c-movie-item__title">{{ movie.title }}</h3>
         <p class="c-movie-item__genre">
           <span v-for="(genre, index) in movie.genres" :key="index">{{ genre }}{{ index < movie.genres.length - 1 ? ', ' : '' }}</span>
@@ -67,26 +67,13 @@
       overflow: hidden;
   
       &__image {
-        @include responsiveImageContainer(4,3);
+        @include responsiveImageContainer(3,4);
         background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: cover;
         transform: scale(1);
         transition: transform .4s ease-in-out;
         border-radius: 4px;
-  
-        &::before {
-          clear: both;
-          content: "";
-          display: block;
-          padding-top: 140%;
-        }
-  
-        &::after {
-          clear: both;
-          content: "";
-          display: block;
-        }
   
         &__rating {
           position: absolute;
