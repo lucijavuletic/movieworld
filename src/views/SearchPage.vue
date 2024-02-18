@@ -24,6 +24,7 @@
 <script>
 import MovieItem from '@/components/MovieItem.vue';
 import axios from 'axios';
+import { TMDB_API_KEY } from '../../constants';
 
 export default {
     components: {
@@ -50,7 +51,7 @@ export default {
         async fetchSearchResults() {
         if (this.searchTerm && this.searchResults.length === 0) {
             try {
-            const apiKey = '4f9870dd7efed00d70817e86cdb90878';
+            const apiKey = TMDB_API_KEY;
             const response = await axios.get(
                 `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${this.searchTerm}`
             );

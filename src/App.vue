@@ -11,23 +11,13 @@ export default {
     Footer,
     TopContainer
   },
-  methods: {
-    handleClickOutside(event) {
-      const autocompleteContainer = this.$refs.autocomplete;
-
-      if (autocompleteContainer && !autocompleteContainer.contains(event.target)) {
-        // Clicked outside search container, hide autocomplete
-        this.autocompleteVisible = false;
-      }
-    }
-  },
 };
 </script>
 
 <template>
   <Navbar></Navbar> 
 
-  <main @click="handleClickOutside">
+  <main>
     <!-- Main container styles -->
     <Container>
       <!-- Top container with search and right navigation -->

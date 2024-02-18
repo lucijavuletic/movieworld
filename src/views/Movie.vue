@@ -92,6 +92,7 @@ import { useRouter } from 'vue-router';
 import IconHeart from '@/components/IconHeart.vue';
 import MovieItem from '@/components/MovieItem.vue';
 import StarRating from '@/components/StarRating.vue';
+import { TMDB_API_KEY } from '../../constants';
 
 export default {
   components: {
@@ -106,10 +107,10 @@ export default {
     const similarMovies = ref([]);
     const maxDisplayedMovies = 6;
     const router = useRouter();
+    const apiKey = TMDB_API_KEY;
 
     const fetchMovieDetails = async () => {
       try {
-        const apiKey = '4f9870dd7efed00d70817e86cdb90878';
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${movieId.value}?api_key=${apiKey}&append_to_response=credits,genres`
         );
@@ -122,7 +123,6 @@ export default {
 
     const fetchRecommendedMovies = async () => {
       try {
-        const apiKey = '4f9870dd7efed00d70817e86cdb90878';
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${movieId.value}/recommendations?api_key=${apiKey}`
         );
@@ -134,7 +134,6 @@ export default {
 
     const fetchSimilarMovies = async () => {
       try {
-        const apiKey = '4f9870dd7efed00d70817e86cdb90878';
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${movieId.value}/similar?api_key=${apiKey}`
         );
