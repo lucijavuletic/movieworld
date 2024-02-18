@@ -35,7 +35,7 @@
         fill: transparent;
         stroke-width: 14px;
         stroke: $color-red;
-        transition: all .25s ease-in-out;
+        transition: all .2s ease-in-out;
     }
   }
 </style>

@@ -68,7 +68,7 @@ export default {
 
     &__container {
         display: flex;
-        padding: 16px 0;
+        padding: 8px 0;
         position: relative;
         text-align: center;
 
@@ -112,6 +112,7 @@ export default {
             &__text {
                 font-size: 28px;
                 color: $color-dark-brown;
+                margin: 0;
             }
             
             &:hover {
@@ -126,6 +127,14 @@ export default {
 
     @include respondBetween(0, 600px) {
       &__container {
+        &__dots {
+          gap: 4px;
+
+          &__dot {
+            width: 5px;
+            height: 5px;
+          }
+        }
         &__title {
           gap: 4px;
           

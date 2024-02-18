@@ -19,11 +19,20 @@
     <!-- Movies grid -->
     <div class="movies-container">
         <div class="movies-container__movies">
-            <movie-item v-for="movie in displayedMoviesWithGenres" :key="movie.id" :movie="movie" @go-to-movie-details="goToMovieDetails"></movie-item>
+            <movie-item 
+                v-for="movie in displayedMoviesWithGenres" 
+                :key="movie.id" 
+                :movie="movie" 
+                @go-to-movie-details="goToMovieDetails"
+            ></movie-item>
         </div>
-        <Button :clickHandler="loadMore" :isDisabled="!hasMoreMovies" :buttonText="'Load More'"></Button>
+        <Button 
+            :clickHandler="loadMore" 
+            :isDisabled="!hasMoreMovies" 
+            :buttonText="'Load More'">
+        </Button>
     </div>
-  </template>
+</template>
   
 <script>
   import axios from 'axios';
@@ -111,8 +120,6 @@
             });
         },
         goToMovieDetails(movieId) {
-            // Use Vue Router to navigate to the movie details page
-            console.log('Navigating to Movie details with ID:', movieId);
             this.$router.push({ name: 'Movie', params: { id: movieId } });
         },
     },
@@ -125,7 +132,7 @@
 
 .category-nav {
     position: relative;
-    padding-top: 80px;
+    padding-top: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -167,7 +174,8 @@
     &__movies {
         display: flex;
         flex-wrap: wrap;
-        width: calc(100% + 16px);
+        width: calc(100% + 32px);
+        margin-left: -16px;
         margin-bottom: 40px;
 
         .c-movie-item {
@@ -206,11 +214,17 @@
         }
     }
     .movies-container {
+        width: 100%;
+        margin-left: 0;
         margin-bottom: 32px;
 
+        &__movies {
+            padding: 0 8px;
+        }
+
         .c-movie-item {
-            flex: 1 0 33.33%;
-            max-width: 33.33%;
+            flex: 1 0 50%;
+            max-width: 50%;
         }
     }
 }

@@ -8,7 +8,6 @@
 <script>
 export default {
   name: 'Container',
-  // Other component options can be added here
 };
 </script>
 
