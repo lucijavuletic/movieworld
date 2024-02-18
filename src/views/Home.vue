@@ -19,11 +19,20 @@
     <!-- Movies grid -->
     <div class="movies-container">
         <div class="movies-container__movies">
-            <movie-item v-for="movie in displayedMoviesWithGenres" :key="movie.id" :movie="movie" @go-to-movie-details="goToMovieDetails"></movie-item>
+            <movie-item 
+                v-for="movie in displayedMoviesWithGenres" 
+                :key="movie.id" 
+                :movie="movie" 
+                @go-to-movie-details="goToMovieDetails"
+            ></movie-item>
         </div>
-        <Button :clickHandler="loadMore" :isDisabled="!hasMoreMovies" :buttonText="'Load More'"></Button>
+        <Button 
+            :clickHandler="loadMore" 
+            :isDisabled="!hasMoreMovies" 
+            :buttonText="'Load More'">
+        </Button>
     </div>
-  </template>
+</template>
   
 <script>
   import axios from 'axios';
@@ -111,7 +120,6 @@
             });
         },
         goToMovieDetails(movieId) {
-            // Use Vue Router to navigate to the movie details page
             this.$router.push({ name: 'Movie', params: { id: movieId } });
         },
     },
@@ -124,7 +132,7 @@
 
 .category-nav {
     position: relative;
-    padding-top: 80px;
+    padding-top: 32px;
     display: flex;
     justify-content: center;
     align-items: center;

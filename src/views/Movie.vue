@@ -50,10 +50,16 @@
         <div v-if="movieDetails.imdb_id" class="movie-details-container__content__right__imdb">
           View Movie on <a :href="getIMDbUrl(movieDetails.imdb_id)" target="_blank">IMDb</a>
         </div>
-        <p class="movie-details-container__content__right__legend">{{ movieDetails.tagline }}</p>
-        <p class="movie-details-container__content__right__overview">{{ movieDetails.overview }}</p>
+        <p class="movie-details-container__content__right__legend">
+          {{ movieDetails.tagline }}
+        </p>
+        <p class="movie-details-container__content__right__overview">
+          {{ movieDetails.overview }}
+        </p>
         <div class="movie-details-container__content__right__credits">
-          <h3 class="movie-details-container__content__right__credits__title">Credits</h3>
+          <h3 class="movie-details-container__content__right__credits__title">
+            Credits
+          </h3>
           <div v-if="movieDetails.credits && movieDetails.credits.cast">
             <span v-for="(person, index) in movieDetails.credits.cast" :key="person.id">
               {{ person.name }}<span v-if="!isLastItem(index, movieDetails.credits.cast)">, </span>
@@ -221,6 +227,8 @@ export default {
 @import '../assets/styles/common/mixins.scss';
 @import '../assets/styles/common/colors.scss';
 .movie-details-container {
+  margin-top: 32px;
+
   &__bckg-container {
     &__image {
       @include responsiveImageContainer(16,4);

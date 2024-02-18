@@ -68,7 +68,7 @@ export default {
 
     &__container {
         display: flex;
-        padding: 16px 0;
+        padding: 8px 0;
         position: relative;
         text-align: center;
 
@@ -112,6 +112,7 @@ export default {
             &__text {
                 font-size: 28px;
                 color: $color-dark-brown;
+                margin: 0;
             }
             
             &:hover {

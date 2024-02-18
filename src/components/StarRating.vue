@@ -51,7 +51,7 @@ export default {
 }
 
 .star-rating span {
-  color: $color-yellow; /* Gold color for stars */
+  color: $color-yellow; 
 }
 
 .star-rating span.fas {
