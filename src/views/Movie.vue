@@ -1,173 +1,221 @@
 <!-- Movie.vue -->
 <template>
-    <div class="movie-details-container">
-      <div class="movie-details-container__bckg-container">
-        <div 
-          class="movie-details-container__bckg-container__image" 
-          :style="{ backgroundImage: `url('${getBackgroundImageUrl(movieDetails.backdrop_path)}')` }"
-        ></div>
-      </div>
-      <div class="movie-details-container__content">
-        <div class="movie-details-container__content__left">
-          <div class="movie-details-container__content__left__poster">
-            <div 
-              class="movie-details-container__content__left__poster__image" 
-              :style="{ backgroundImage: `url('${(getMoviePosterUrl(movieDetails.poster_path))}')` }"
-            ></div>
-            <div class="movie-details-container__content__left__poster__duration">
-              <img class="movie-details-container__content__left__poster__duration__icon" src="../assets/images/icon-clock.svg">
-              {{ movieDetails.runtime }} min
-            </div>
-          </div>
-          <div class="movie-details-container__content__left__rating-and-heart">
-            <div class="movie-details-container__content__left__rating-and-heart__rating">
-              <star-rating :value="movieDetails.vote_average / 2"></star-rating>
-            </div>
-            <div class="movie-details-container__content__left__rating-and-heart__heart">
-              <IconHeart></IconHeart>
-            </div>
+  <div class="movie-details-container">
+    <!-- Large background image -->
+    <div class="movie-details-container__bckg-container">
+      <div
+        class="movie-details-container__bckg-container__image"
+        :style="{ backgroundImage: `url('${getBackgroundImageUrl(movieDetails.backdrop_path)}')` }"
+      ></div>
+    </div>
+    <!-- Movie content -->
+    <div class="movie-details-container__content">
+      <!-- Left part with poster, ratings and heart -->
+      <div class="movie-details-container__content__left">
+        <div class="movie-details-container__content__left__poster">
+          <div
+            class="movie-details-container__content__left__poster__image"
+            :style="{ backgroundImage: `url('${getMoviePosterUrl(movieDetails.poster_path)}')` }"
+          ></div>
+          <div class="movie-details-container__content__left__poster__duration">
+            <img
+              class="movie-details-container__content__left__poster__duration__icon"
+              src="../assets/images/icon-clock.svg"
+            />
+            {{ movieDetails.runtime }} min
           </div>
         </div>
-        <div class="movie-details-container__content__right">
-          <h2 class="movie-details-container__content__right__title">
-            {{ movieDetails.title }}
-          </h2>
-          <div class="movie-details-container__content__right__year">
-              <img class="movie-details-container__content__right__year__icon" src="../assets/images/date-icon.svg" alt="Date year">
-              {{ getReleaseYear(movieDetails.release_date) }}
+        <div class="movie-details-container__content__left__rating-and-heart">
+          <div class="movie-details-container__content__left__rating-and-heart__rating">
+            <star-rating :value="movieDetails.vote_average / 2"></star-rating>
           </div>
-          <div class="movie-details-container__content__right__genres">
-            <strong>Genre: </strong>
-            <span v-for="(genre, index) in movieDetails.genres" :key="genre.id">
-              {{ genre.name }}<span v-if="!isLastItem(index, movieDetails.genres)">, </span>
+          <div class="movie-details-container__content__left__rating-and-heart__heart">
+            <IconHeart></IconHeart>
+          </div>
+        </div>
+      </div>
+      <!-- Right part with textual movie data (title, year, genre, overview..) -->
+      <div class="movie-details-container__content__right">
+        <h2 class="movie-details-container__content__right__title">{{ movieDetails.title }}</h2>
+        <div class="movie-details-container__content__right__year">
+          <img class="movie-details-container__content__right__year__icon" src="../assets/images/date-icon.svg" alt="Date year" />
+          {{ getReleaseYear(movieDetails.release_date) }}
+        </div>
+        <div class="movie-details-container__content__right__genres">
+          <strong>Genre: </strong>
+          <span v-for="(genre, index) in movieDetails.genres" :key="genre.id">
+            {{ genre.name }}<span v-if="!isLastItem(index, movieDetails.genres)">, </span>
+          </span>
+        </div>
+        <div v-if="movieDetails.imdb_id" class="movie-details-container__content__right__imdb">
+          View Movie on <a :href="getIMDbUrl(movieDetails.imdb_id)" target="_blank">IMDb</a>
+        </div>
+        <p class="movie-details-container__content__right__legend">{{ movieDetails.tagline }}</p>
+        <p class="movie-details-container__content__right__overview">{{ movieDetails.overview }}</p>
+        <div class="movie-details-container__content__right__credits">
+          <h3 class="movie-details-container__content__right__credits__title">Credits</h3>
+          <div v-if="movieDetails.credits && movieDetails.credits.cast">
+            <span v-for="(person, index) in movieDetails.credits.cast" :key="person.id">
+              {{ person.name }}<span v-if="!isLastItem(index, movieDetails.credits.cast)">, </span>
             </span>
           </div>
-          <div v-if="movieDetails.imdb_id" class="movie-details-container__content__right__imdb">
-            View Movie on <a :href="getIMDbUrl(movieDetails.imdb_id)" target="_blank">IMDb</a>
-          </div>
-          <p class="movie-details-container__content__right__legend">
-            {{ movieDetails.tagline }}
-          </p>
-          <p class="movie-details-container__content__right__overview">
-            {{ movieDetails.overview }}
-          </p>
-          <div class="movie-details-container__content__right__credits">
-            <h3 class="movie-details-container__content__right__credits__title">
-              Credits
-            </h3>
-            <div v-if="movieDetails.credits && movieDetails.credits.cast">
-              <span v-for="(person, index) in movieDetails.credits.cast" :key="person.id">
-                {{ person.name }}<span v-if="!isLastItem(index, movieDetails.credits.cast)">, </span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="movie-details-container__recommendations" v-if="recommendedMovies.length > 0" >
-        <!-- Recommended Movies -->
-        <h3 class="movie-details-container__recommendations__title">Recommended Movies:</h3>
-        <div class="movie-details-container__recommendations__movies">
-          <movie-item v-for="movie in recommendedMovies" :key="movie.id" :movie="movie" @go-to-movie-details="goToMovieDetails"></movie-item>
-        </div>
-      </div>
-      <div class="movie-details-container__similar" v-if="similarMovies.length > 0">
-        <!-- Similar Movies -->
-        <h3 class="movie-details-container__similar__title">Similar Movies:</h3>
-        <div class="movie-details-container__similar__movies">
-          <movie-item v-for="movie in similarMovies" :key="movie.id" :movie="movie" @go-to-movie-details="goToMovieDetails"></movie-item>
         </div>
       </div>
     </div>
-  </template>
-  
+    <!-- Recommended Movies -->
+    <div class="movie-details-container__recommendations" v-if="recommendedMovies.length > 0">
+      <h3 class="movie-details-container__recommendations__title">Recommended Movies:</h3>
+      <div class="movie-details-container__recommendations__movies">
+        <movie-item v-for="movie in recommendedMovies" :key="movie.id" :movie="movie" @go-to-movie-details="goToMovieDetails"></movie-item>
+      </div>
+    </div>
+    <!-- Similar Movies -->
+    <div class="movie-details-container__similar" v-if="similarMovies.length > 0">
+      <h3 class="movie-details-container__similar__title">Similar Movies:</h3>
+      <div class="movie-details-container__similar__movies">
+        <movie-item v-for="movie in similarMovies" :key="movie.id" :movie="movie" @go-to-movie-details="goToMovieDetails"></movie-item>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script>
 import axios from 'axios';
+import { ref, watch, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import IconHeart from '@/components/IconHeart.vue';
 import MovieItem from '@/components/MovieItem.vue';
 import StarRating from '@/components/StarRating.vue';
 
 export default {
   components: {
-      IconHeart,
-      MovieItem,
-      StarRating
+    IconHeart,
+    MovieItem,
+    StarRating,
   },
-  data() {
-    return {
-      movieId: null,
-      movieDetails: {},
-      recommendedMovies: [],
-      similarMovies: [],
-      maxDisplayedMovies: 6
-    };
-  },
-  created() {
-    // Access the dynamic route parameter ':id'
-    this.movieId = this.$route.params.id;
-    this.fetchMovieDetails();
-    this.fetchRecommendedMovies();
-    this.fetchSimilarMovies();
-    console.log('Current Movie ID:', this.$route.params.id);
-  },
-  methods: {
-    async fetchMovieDetails() {
+  setup() {
+    const movieId = ref(null);
+    const movieDetails = ref({});
+    const recommendedMovies = ref([]);
+    const similarMovies = ref([]);
+    const maxDisplayedMovies = 6;
+    const router = useRouter();
+
+    const fetchMovieDetails = async () => {
       try {
         const apiKey = '4f9870dd7efed00d70817e86cdb90878';
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${this.movieId}?api_key=${apiKey}&append_to_response=credits,genres`);
-        this.movieDetails = response.data;
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${movieId.value}?api_key=${apiKey}&append_to_response=credits,genres`
+        );
+        movieDetails.value = response.data;
+        scrollToTop();
       } catch (error) {
         console.error('Error fetching movie details:', error);
       }
-    },
-    getMoviePosterUrl(posterPath) {
-      if (!posterPath) {
-        return '';
+    };
+
+    const fetchRecommendedMovies = async () => {
+      try {
+        const apiKey = '4f9870dd7efed00d70817e86cdb90878';
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${movieId.value}/recommendations?api_key=${apiKey}`
+        );
+        recommendedMovies.value = response.data.results.slice(0, maxDisplayedMovies);
+      } catch (error) {
+        console.error('Error fetching recommended movies:', error);
       }
-      return `https://image.tmdb.org/t/p/w500/${posterPath}`;
-    },
-    getBackgroundImageUrl(backdropPath) {
+    };
+
+    const fetchSimilarMovies = async () => {
+      try {
+        const apiKey = '4f9870dd7efed00d70817e86cdb90878';
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${movieId.value}/similar?api_key=${apiKey}`
+        );
+        similarMovies.value = response.data.results.slice(0, maxDisplayedMovies);
+      } catch (error) {
+        console.error('Error fetching similar movies:', error);
+      }
+    };
+
+    const getBackgroundImageUrl = (backdropPath) => {
       if (!backdropPath) {
         return '';
       }
       return `https://image.tmdb.org/t/p/original${backdropPath}`;
-    },
-    isLastItem(index, arr) {
+    };
+
+    const getMoviePosterUrl = (posterPath) => {
+      if (!posterPath) {
+        return window.location.origin + '/src/assets/images/movie-poster-placeholder.png';
+      }
+      return `https://image.tmdb.org/t/p/w500/${posterPath}`;
+    };
+
+    const isLastItem = (index, arr) => {
       return index === arr.length - 1;
-    },
-    getReleaseYear(releaseDate) {
-        if (!releaseDate) {
-          return '';
-        }
-        return new Date(releaseDate).getFullYear();
-    },
-    getIMDbUrl(imdbId) {
+    };
+
+    const getReleaseYear = (releaseDate) => {
+      if (!releaseDate) {
+        return '';
+      }
+      return new Date(releaseDate).getFullYear();
+    };
+
+    const getIMDbUrl = (imdbId) => {
       return `https://www.imdb.com/title/${imdbId}/`;
-    },
-    async fetchRecommendedMovies() {
-      try {
-        const apiKey = '4f9870dd7efed00d70817e86cdb90878';
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${this.movieId}/recommendations?api_key=${apiKey}`);
-        this.recommendedMovies = response.data.results.slice(0, this.maxDisplayedMovies);
-      } catch (error) {
-        console.error('Error fetching recommended movies:', error);
+    };
+
+    const goToMovieDetails = (id) => {
+      router.push({ name: 'Movie', params: { id } });
+    };
+
+    watch(
+      () => router.currentRoute.value.params.id,
+      (newMovieId, oldMovieId) => {
+        movieId.value = newMovieId;
+        fetchMovieDetails();
+        fetchRecommendedMovies();
+        fetchSimilarMovies();
       }
-    },
-    async fetchSimilarMovies() {
-      try {
-        const apiKey = '4f9870dd7efed00d70817e86cdb90878';
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${this.movieId}/similar?api_key=${apiKey}`);
-        this.similarMovies = response.data.results.slice(0, this.maxDisplayedMovies);;
-      } catch (error) {
-        console.error('Error fetching similar movies:', error);
-      }
-    },
-    goToMovieDetails(movieId) {
-      console.log('Navigating to Movie Details for ID:', movieId);
-        this.$router.push({ name: 'Movie', params: { id: movieId } });
-    },
+    );
+
+    // Fetch data on component mount
+    onMounted(() => {
+      movieId.value = router.currentRoute.value.params.id;
+      fetchMovieDetails();
+      fetchRecommendedMovies();
+      fetchSimilarMovies();
+    });
+
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    };
+
+    return {
+      movieId,
+      movieDetails,
+      recommendedMovies,
+      similarMovies,
+      maxDisplayedMovies,
+      fetchMovieDetails,
+      fetchRecommendedMovies,
+      fetchSimilarMovies,
+      getBackgroundImageUrl,
+      getMoviePosterUrl,
+      isLastItem,
+      getReleaseYear,
+      getIMDbUrl,
+      goToMovieDetails,
+      scrollToTop,
+    };
   },
 };
-</script> 
+</script>
   
 <style scoped lang="scss">
 @import '../assets/styles/common/mixins.scss';

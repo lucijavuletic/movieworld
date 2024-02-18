@@ -126,6 +126,14 @@ export default {
 
     @include respondBetween(0, 600px) {
       &__container {
+        &__dots {
+          gap: 4px;
+
+          &__dot {
+            width: 5px;
+            height: 5px;
+          }
+        }
         &__title {
           gap: 4px;
           

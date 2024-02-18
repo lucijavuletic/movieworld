@@ -112,7 +112,6 @@
         },
         goToMovieDetails(movieId) {
             // Use Vue Router to navigate to the movie details page
-            console.log('Navigating to Movie details with ID:', movieId);
             this.$router.push({ name: 'Movie', params: { id: movieId } });
         },
     },
@@ -167,7 +166,8 @@
     &__movies {
         display: flex;
         flex-wrap: wrap;
-        width: calc(100% + 16px);
+        width: calc(100% + 32px);
+        margin-left: -16px;
         margin-bottom: 40px;
 
         .c-movie-item {
@@ -206,7 +206,13 @@
         }
     }
     .movies-container {
+        width: 100%;
+        margin-left: 0;
         margin-bottom: 32px;
+
+        &__movies {
+            padding: 0 8px;
+        }
 
         .c-movie-item {
             flex: 1 0 33.33%;

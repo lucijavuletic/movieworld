@@ -33,7 +33,7 @@
       },
       getMoviePosterUrl(posterPath) {
         if (!posterPath) {
-          return '';
+          return window.location.origin + '/src/assets/images/movie-poster-placeholder.png';
         }
         return `https://image.tmdb.org/t/p/w500/${posterPath}`;
       },
@@ -127,6 +127,15 @@
 
     @include respondBetween(0, 600px) {
         padding: 8px;
+
+        &__image-container {
+          &__image {
+            &__rating {
+              font-size: 12px;
+              margin-top: -4px;
+            }
+          }
+        }
 
         &__title {
             font-size: 14px;
