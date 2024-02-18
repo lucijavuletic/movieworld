@@ -215,8 +215,8 @@
         }
 
         .c-movie-item {
-            flex: 1 0 33.33%;
-            max-width: 33.33%;
+            flex: 1 0 50%;
+            max-width: 50%;
         }
     }
 }

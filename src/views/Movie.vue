@@ -424,6 +424,15 @@ export default {
         margin-top: 0;
       }
     }
+
+    &__recommendations, &__similar {
+      &__movies {
+        .c-movie-item {
+          flex: 1 0 50%;
+          max-width: 50%;
+        }
+      }
+    }
   }
 }
 </style>
