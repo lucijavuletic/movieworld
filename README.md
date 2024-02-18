@@ -1,14 +1,12 @@
-# tmdb
+# MovieWorld
 
-This template should help get you started developing with Vue 3 in Vite.
+## About
 
-## Recommended IDE Setup
+Frontend Vue3 SPA about movies, fetched from <a href="https://www.themoviedb.org/"> TMDB </a>. 
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Live Demo
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+<a href="https://frontend-project.in/"> frontend-project.in </a>.
 
 ## Project Setup
 
@@ -21,6 +19,7 @@ npm install
 ```sh
 npm run dev
 ```
+ 
 
 ### Compile and Minify for Production
 
