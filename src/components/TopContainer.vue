@@ -63,6 +63,7 @@
   
 <script>
   import axios from 'axios';
+  import { TMDB_API_KEY } from '../../constants';
   
   export default {
     data() {
@@ -76,10 +77,11 @@
       // API search function
       async performSearch(openSearchPage = false) {
         try {
-          const apiKey = '4f9870dd7efed00d70817e86cdb90878';
+          const apiKey = TMDB_API_KEY;
           const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${this.searchQuery}`);
           this.searchResults = response.data.results;
           if (openSearchPage) {
+            this.autocompleteVisible = false;
             this.$router.push({ name: 'SearchPage', query: { term: this.searchQuery }, params: { searchResults: JSON.stringify(this.searchResults) } });
           }
         } catch (error) {

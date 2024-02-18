@@ -38,6 +38,7 @@
   import axios from 'axios';
   import MovieItem from '@/components/MovieItem.vue';
   import Button from '@/components/Button.vue';
+  import { TMDB_API_KEY } from '../../constants';
   
   export default {
     components: {
@@ -46,7 +47,7 @@
     },
     data() {
       return {
-        apiKey: '4f9870dd7efed00d70817e86cdb90878',
+        apiKey: TMDB_API_KEY,
         movies: [],
         genres: [], 
         moviesPerPage: 12,
